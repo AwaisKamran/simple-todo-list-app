@@ -1,0 +1,35 @@
+.container{
+  display: flex;
+  height: 680px;
+  align-items: center;
+  justify-content: center;
+  background-color: lightcoral;
+}
+
+.todo-list-container{
+  background-color: white;
+  width: 400px;
+  height:500px;
+  padding:10px;
+}
+
+.input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.input-field{
+  width: 80%;
+  margin-right: 4px;
+  height: 20px;
+}
+
+.add-button{
+  height: 26px;
+}
+
+.data-container{
+  padding: 10px;
+}
