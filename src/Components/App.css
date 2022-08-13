@@ -10,7 +10,7 @@
   background-color: white;
   width: 400px;
   height:500px;
-  padding:10px;
+  padding:15px;
 }
 
 .input-container{
@@ -21,15 +21,58 @@
 }
 
 .input-field{
-  width: 80%;
+  width: 87%;
   margin-right: 4px;
   height: 20px;
 }
 
 .add-button{
   height: 26px;
+  cursor: pointer;;
 }
 
 .data-container{
   padding: 10px;
+  height: 380px;
+  margin-top: 14px;
+  overflow-y: scroll;
+  border: 1px solid #e7dede;
+}
+
+.todo-item-container{
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.todo-item{
+  padding: 8px;
+  text-transform: capitalize;
+  color: gray;
+  width: 325px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button-container{
+  display: flex;
+  justify-content: end;
+  margin-top: 17px;
+}
+
+.button-container button{
+  display: flex;
+  background-color:palevioletred;
+  border: 0px;
+  color: white;
+  padding: 8px;
+  align-items: center;
+}
+
+.add-icon{
+  line-height: 0.75;
+}
+
+.delete-icon{
+  font-size: 18px;
 }
