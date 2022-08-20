@@ -1,5 +1,6 @@
 .container{
   display: flex;
+  flex-direction: column;
   height: 680px;
   align-items: center;
   justify-content: center;
@@ -75,4 +76,16 @@
 
 .delete-icon{
   font-size: 18px;
+}
+
+.heading{
+  font-size: 20px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.no-data{
+  text-align: center;
+  width: 100%;
+  color: gray;
 }
