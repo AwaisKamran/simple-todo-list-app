@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import axios from "axios";
+import Heading from "./Heading/Heading";
+import DataContainer from "./DataContainer/DataContainer"
+import InputContainer from './InputContainer/InputContainer';
+import ActionContainer from './ActionContainer/ActionContainer';
 
-const ENTER_KEY = 13;
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.textInput = React.createRef();
     this.state = {
       data: []
     };
@@ -14,7 +16,6 @@ class App extends React.Component{
 
   componentDidMount(){
     //this.getData();
-    this.textInput.current.focus();
   }
 
   getData() {
@@ -24,8 +25,7 @@ class App extends React.Component{
     });
   }
 
-  addItem = () => {
-    const title = this.textInput.current.value;
+  addItem = (title) => {
     if(title){
       const data = [... this.state.data];
 
@@ -40,46 +40,25 @@ class App extends React.Component{
     }
   }
 
-  detectKey = (event) => {
-    if(event.charCode === ENTER_KEY){
-      this.addItem()
-      this.textInput.current.value = "";
+  deleteItem = (items) => {
+    if(items.length > 0){
+      const data = [... this.state.data];
+      // const newData = data.filter((todo) => {
+        
+      // })
     }
   }
 
+
   render(){
+    console.log("App Component Rendered");
     return (
       <div className="container">
-        <div className='heading'>Todo List</div>
+        <Heading />
         <div className="todo-list-container">
-          <div className="input-container">
-            <input onKeyPress={this.detectKey} ref={this.textInput} className="input-field" type="text" placeholder="Enter task here" />
-            <button className="add-button" onClick={this.addItem}>
-              <span className="material-symbols-outlined add-icon">add</span>
-            </button>
-          </div>
-  
-          <div className="data-container">
-            {
-              this.state.data.length > 0 ? 
-                this.state.data.map((todo) => (
-                  <div key={todo.id} className="todo-item-container">
-                    <input type="checkbox" />
-                    <div className="todo-item">
-                      {todo.title}
-                    </div>
-                  </div>
-                  )
-                ): <div className="no-data">No data available</div>
-            }
-          </div>
-
-          <div className='button-container'>
-            <button>
-              <span className="delete-text">Delete</span> 
-              <span className="material-symbols-outlined delete-icon">delete</span>
-            </button>
-          </div>
+          <InputContainer addItem={this.addItem}></InputContainer>
+          <DataContainer data={this.state.data}></DataContainer>
+          <ActionContainer></ActionContainer> 
         </div>
       </div>
     );

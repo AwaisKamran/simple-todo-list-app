@@ -1,0 +1,18 @@
+.button-container{
+  display: flex;
+  justify-content: end;
+  margin-top: 17px;
+}
+
+.button-container button{
+  display: flex;
+  background-color:palevioletred;
+  border: 0px;
+  color: white;
+  padding: 8px;
+  align-items: center;
+}
+
+.delete-icon{
+  font-size: 18px;
+}

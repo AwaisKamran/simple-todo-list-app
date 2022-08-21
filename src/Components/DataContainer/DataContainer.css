@@ -1,0 +1,28 @@
+.data-container{
+  padding: 10px;
+  height: 380px;
+  margin-top: 14px;
+  overflow-y: scroll;
+  border: 1px solid #e7dede;
+}
+
+.todo-item-container{
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.todo-item{
+  padding: 8px;
+  text-transform: capitalize;
+  color: gray;
+  width: 325px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-data{
+  text-align: center;
+  width: 100%;
+  color: gray;
+}
