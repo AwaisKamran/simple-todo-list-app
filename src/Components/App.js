@@ -1,33 +1,43 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import axios from "axios";
 import Heading from "./Heading/Heading";
-import DataContainer from "./DataContainer/DataContainer"
-import InputContainer from './InputContainer/InputContainer';
-import ActionContainer from './ActionContainer/ActionContainer';
-
-class App extends React.Component{
-  constructor(props){
+import DataContainer from "./DataContainer/DataContainer";
+import InputContainer from "./InputContainer/InputContainer";
+class App extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //this.getData();
   }
 
   getData() {
-    axios.get("https://jsonplaceholder.typicode.com/todos")
-    .then((response) => {
-      this.setState({ data: response.data})
+    axios.get("https://jsonplaceholder.typicode.com/todos").then((response) => {
+      this.setState({ data: response.data });
     });
   }
 
+  selectItem = (id) => {
+    let newData = [...this.state.data];
+
+    newData.forEach((item) => {
+      if (item.id == id) {
+        item.completed = true;
+      }
+    });
+
+    console.log(newData);
+    this.setState({ data: newData });
+  };
+
   addItem = (title) => {
-    if(title){
-      const data = [... this.state.data];
+    if (title) {
+      const data = [...this.state.data];
 
       data.push({
         id: data.length + 1,
@@ -35,30 +45,29 @@ class App extends React.Component{
         userId: 10,
         title,
       });
-  
-      this.setState({ data })
+
+      this.setState({ data });
     }
-  }
+  };
 
-  deleteItem = (items) => {
-    if(items.length > 0){
-      const data = [... this.state.data];
-      // const newData = data.filter((todo) => {
-        
-      // })
-    }
-  }
+  deleteItem = (id) => {
+    const data = [...this.state.data];
+    const newData = data.filter((todo) => todo.id !== id);
+    this.setState({ data: newData });
+  };
 
-
-  render(){
+  render() {
     console.log("App Component Rendered");
     return (
       <div className="container">
         <Heading />
         <div className="todo-list-container">
           <InputContainer addItem={this.addItem}></InputContainer>
-          <DataContainer data={this.state.data}></DataContainer>
-          <ActionContainer></ActionContainer> 
+          <DataContainer
+            deleteItem={this.deleteItem}
+            selectItem={this.selectItem}
+            data={this.state.data}
+          ></DataContainer>
         </div>
       </div>
     );
