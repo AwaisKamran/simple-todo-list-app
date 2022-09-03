@@ -15,13 +15,14 @@ export default class DataContainer extends React.Component {
               <input
                 onChange={() => this.props.selectItem(todo.id)}
                 type="checkbox"
+                checked={todo.completed}
               />
               <div className="todo-item">{todo.title}</div>
               <span
                 onClick={() => {
                   this.props.deleteItem(todo.id);
                 }}
-                class="material-symbols-outlined delete-icon"
+                className="material-symbols-outlined delete-icon"
               >
                 close
               </span>

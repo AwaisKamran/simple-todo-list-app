@@ -13,13 +13,25 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //this.getData();
+    this.getData();
   }
 
   getData() {
-    axios.get("https://jsonplaceholder.typicode.com/todos").then((response) => {
+    axios.get("http://localhost:8081/todos").then((response) => {
       this.setState({ data: response.data });
     });
+  }
+
+  postData(data) {
+    axios.post("http://localhost:8081/todos", data).then((response) => {});
+  }
+
+  updateData(id) {
+    axios.put(`http://localhost:8081/todos/${id}`).then((response) => {});
+  }
+
+  deleteData(id) {
+    axios.delete(`http://localhost:8081/todos/${id}`).then((response) => {});
   }
 
   selectItem = (id) => {
@@ -27,26 +39,27 @@ class App extends React.Component {
 
     newData.forEach((item) => {
       if (item.id == id) {
-        item.completed = true;
+        item.completed = !item.completed;
       }
     });
 
-    console.log(newData);
     this.setState({ data: newData });
+    this.updateData(id);
   };
 
   addItem = (title) => {
     if (title) {
       const data = [...this.state.data];
-
-      data.push({
+      let newData = {
         id: data.length + 1,
         completed: false,
         userId: 10,
         title,
-      });
+      };
 
+      data.push(newData);
       this.setState({ data });
+      this.postData(newData);
     }
   };
 
@@ -54,6 +67,7 @@ class App extends React.Component {
     const data = [...this.state.data];
     const newData = data.filter((todo) => todo.id !== id);
     this.setState({ data: newData });
+    this.deleteData(id);
   };
 
   render() {
