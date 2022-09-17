@@ -1,8 +1,9 @@
-import React from "react";
-import "./InputContainer.css"
+import React, { useEffect, useRef } from "react";
+import "./InputContainer.css";
 
 const ENTER_KEY = 13;
 
+/*
 export default class InputContainer extends React.PureComponent{
   constructor(props){
     super(props);
@@ -36,3 +37,43 @@ export default class InputContainer extends React.PureComponent{
     );
   }
 }
+
+*/
+
+function InputContainer({ addItem }) {
+  console.log("Input Container component rendered");
+
+  const textInput = useRef("");
+
+  const detectKey = (event) => {
+    if (event.charCode === ENTER_KEY) {
+      addTodoItem();
+      textInput.current.value = "";
+    }
+  };
+
+  const addTodoItem = () => {
+    addItem(textInput.current.value);
+  };
+
+  useEffect(() => {
+    textInput.current.focus();
+  }, []);
+
+  return (
+    <div className="input-container">
+      <input
+        onKeyPress={detectKey}
+        ref={textInput}
+        className="input-field"
+        type="text"
+        placeholder="Enter task here"
+      />
+      <button className="add-button" onClick={addTodoItem}>
+        <span className="material-symbols-outlined add-icon">add</span>
+      </button>
+    </div>
+  );
+}
+
+export default React.memo(InputContainer);

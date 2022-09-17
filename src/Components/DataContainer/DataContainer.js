@@ -1,5 +1,6 @@
 import React from "react";
 import "./DataContainer.css";
+/*
 export default class DataContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -38,4 +39,39 @@ export default class DataContainer extends React.Component {
       </div>
     );
   }
+}
+*/
+
+export default function DataContainer({ data, selectItem, deleteItem }) {
+  console.log("Data Container Component Rendered");
+  return (
+    <div className="data-container">
+      {data.length > 0 ? (
+        data.map((todo) => (
+          <div key={todo.id} className="todo-item-container">
+            <input
+              onChange={() => selectItem(todo.id)}
+              type="checkbox"
+              checked={todo.completed}
+            />
+            <div
+              className={`todo-item ${todo.completed ? "item-checked" : ""}`}
+            >
+              {todo.title}
+            </div>
+            <span
+              onClick={() => {
+                deleteItem(todo.id);
+              }}
+              className="material-symbols-outlined delete-icon"
+            >
+              close
+            </span>
+          </div>
+        ))
+      ) : (
+        <div className="no-data">No data available</div>
+      )}
+    </div>
+  );
 }

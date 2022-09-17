@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Heading from "./Heading/Heading";
 import DataContainer from "./DataContainer/DataContainer";
 import InputContainer from "./InputContainer/InputContainer";
+
+/*
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -94,6 +96,92 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+*/
+
+function App() {
+  console.log("App Component Rendered");
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    axios.get("http://localhost:8081/todos").then((response) => {
+      setData(response.data);
+    });
+  };
+
+  const postData = (data) => {
+    axios.post("http://localhost:8081/todos", data).then((response) => {});
+  };
+
+  const updateData = (id) => {
+    axios.put(`http://localhost:8081/todos/${id}`).then((response) => {});
+  };
+
+  const deleteData = (id) => {
+    axios.delete(`http://localhost:8081/todos/${id}`).then((response) => {});
+  };
+
+  const selectItem = (id) => {
+    let newData = [...data];
+
+    newData.forEach((item) => {
+      if (item.id == id) {
+        item.completed = !item.completed;
+      }
+    });
+
+    setData(newData);
+    updateData(id);
+  };
+
+  const addItem = (title) => {
+    if (title) {
+      const formattedData = [...data];
+      let newData = {
+        id: findMaxId() + 1,
+        completed: false,
+        userId: 10,
+        title,
+      };
+
+      formattedData.push(newData);
+      setData(formattedData);
+      postData(newData);
+    }
+  };
+
+  const deleteItem = (id) => {
+    const newData = [...data].filter((todo) => todo.id !== id);
+    setData(newData);
+    deleteData(id);
+  };
+
+  const findMaxId = () => {
+    const newData = [...data].map((data) => data.id);
+    console.log(newData);
+    console.log(Math.max(...newData));
+    return Math.max(...newData);
+  };
+
+  return (
+    <div className="container">
+      <Heading />
+      <div className="todo-list-container">
+        <InputContainer addItem={addItem}></InputContainer>
+        <DataContainer
+          deleteItem={deleteItem}
+          selectItem={selectItem}
+          data={data}
+        ></DataContainer>
+      </div>
+    </div>
+  );
 }
 
 export default App;
