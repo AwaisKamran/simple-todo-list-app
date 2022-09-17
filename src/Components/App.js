@@ -51,7 +51,7 @@ class App extends React.Component {
     if (title) {
       const data = [...this.state.data];
       let newData = {
-        id: data.length + 1,
+        id: this.findMaxId() + 1,
         completed: false,
         userId: 10,
         title,
@@ -68,6 +68,14 @@ class App extends React.Component {
     const newData = data.filter((todo) => todo.id !== id);
     this.setState({ data: newData });
     this.deleteData(id);
+  };
+
+  findMaxId = () => {
+    const data = [...this.state.data];
+    const newData = data.map((data) => data.id);
+    console.log(newData);
+    console.log(Math.max(...newData));
+    return Math.max(...newData);
   };
 
   render() {

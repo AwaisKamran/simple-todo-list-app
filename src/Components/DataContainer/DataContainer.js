@@ -17,7 +17,11 @@ export default class DataContainer extends React.Component {
                 type="checkbox"
                 checked={todo.completed}
               />
-              <div className="todo-item">{todo.title}</div>
+              <div
+                className={`todo-item ${todo.completed ? "item-checked" : ""}`}
+              >
+                {todo.title}
+              </div>
               <span
                 onClick={() => {
                   this.props.deleteItem(todo.id);
